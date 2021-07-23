@@ -17,6 +17,8 @@ services:
         build: 
             context: .
             dockerfile: Dockerfile
+            args: 
+                - GITHUB_TOKEN=${GITHUBTOKEN}
         container_name: app
         working_dir: /var/www
         volumes:

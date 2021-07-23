@@ -1,5 +1,7 @@
 FROM php:7.4-fpm-alpine3.13
 
+ARG GITHUB_TOKEN
+
 # Set working directory
 WORKDIR /var/www
 
@@ -27,9 +29,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy composer.lock and composer.json
 COPY composer.json ./
 
-RUN composer config github-oauth.github.com ""
-
-RUN composer config disable-tls true
+RUN composer config github-oauth.github.com "$GITHUB_TOKEN"
 
 RUN composer install --no-dev --no-scripts --no-autoloader \
     && composer dump-autoload --optimize;
