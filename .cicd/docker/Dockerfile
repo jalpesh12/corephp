@@ -20,7 +20,10 @@ RUN apk add --no-cache --update \
     curl
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql exif pcntl
+RUN docker-php-ext-install pdo_mysql exif pcntl \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
+    && echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/xdebug.ini
 
 # Install composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
