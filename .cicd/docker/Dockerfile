@@ -21,6 +21,8 @@ RUN apk add --no-cache --update \
 
 # Install extensions
 RUN docker-php-ext-install pdo_mysql exif pcntl \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
     && echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/xdebug.ini
 
 # Install composer
